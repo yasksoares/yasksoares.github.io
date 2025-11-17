@@ -8,12 +8,14 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+/* Título */
 #title {
   font-size: 22px;
   text-align: center;
   margin-bottom: 16px;
 }
 
+/* Caixa de texto */
 #nomeItem {
   width: 100%;
   max-width: 320px;
@@ -24,6 +26,7 @@ body {
   box-sizing: border-box;
 }
 
+/* Botões */
 #addItem,
 #reset {
   width: 100%;
@@ -40,7 +43,6 @@ body {
 #addItem:hover {
   background-color: rgb(214, 213, 213);
 }
-
 #addItem:active {
   background-color: green;
   color: white;
@@ -49,57 +51,90 @@ body {
 #reset:hover {
   background-color: rgb(243, 62, 62);
 }
-
 #reset:active {
   background-color: red;
   color: white;
 }
 
+/* Área dos itens */
 #lista-itens {
-  margin-top: 20px;
   width: 100%;
   max-width: 340px;
+  margin-top: 20px;
 }
 
+/* Total */
 #result {
   margin-top: 18px;
   font-size: 18px;
-  font-family: 'Poppins', sans-serif;
   font-weight: bold;
   width: 100%;
   max-width: 340px;
   text-align: right;
 }
 
+/* Cada item card */
+.item-linha {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 14px;
+  background: white;
+  padding: 10px;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Checkbox */
 .checkboxList {
-  margin-top: 16px;
-  width: 20px;
-  height: 20px;
-  accent-color: #4CAF50;
+  width: 24px;
+  height: 24px;
+  accent-color: #4caf50;
   cursor: pointer;
 }
 
-.remover {
-  padding: 4px 8px;
-  margin-left: 8px;
+/* Nome do item */
+.item-texto {
+  font-size: 16px;
+  font-family: Verdana, sans-serif;
+  flex: 1;
+}
+
+/* Campo de valor */
+.preco-input {
+  width: 80px;
+  padding: 6px;
   border-radius: 8px;
-  border: none;
-  background: crimson;
-  color: white;
-  cursor: pointer;
+  border: 1px solid gray;
+  font-size: 15px;
 }
 
+/* Botão remover */
+.remover {
+  padding: 6px 10px;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  background: crimson;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.remover:hover {
+  background: rgb(230, 0, 40);
+}
 .remover:active {
   background: darkred;
 }
 
-/* 🔥 Ajuste fino para telas menores */
-@media (max-width: 380px) {
-  #nomeItem,
-  #addItem,
-  #reset,
-  #result,
-  #lista-itens {
-    max-width: 280px;
+/* Responsivo */
+@media (max-width: 430px) {
+  .item-linha {
+    flex-wrap: wrap;
+  }
+  .preco-input {
+    width: 100%;
   }
 }
