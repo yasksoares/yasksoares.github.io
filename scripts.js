@@ -57,4 +57,3 @@ buttonAdd.addEventListener("click", function(){
   total.textContent = "R$ " + totalSum;
   });
 })
-
