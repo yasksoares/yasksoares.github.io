@@ -4,8 +4,9 @@ const buttonAdd = document.getElementById("addItem");
 const resetButton = document.getElementById("reset");
 const total = document.getElementById("result");
 
-buttonAdd.addEventListener("click", addItem);
+buttonAdd.addEventListener("click", () => addItem());
 resetButton.addEventListener("click", resetList);
+
 document.addEventListener("DOMContentLoaded", loadSavedList);
 
 function addItem(text = item.value, price = "", checked = false) {
@@ -14,34 +15,38 @@ function addItem(text = item.value, price = "", checked = false) {
     return;
   }
 
-  const linha = document.createElement("div");
-  linha.classList.add("item-linha");
+  const label = document.createElement("label");
 
   const checkbox = document.createElement("input");
   checkbox.type = "checkbox";
-  checkbox.classList.add("checkboxList");
+  checkbox.className = "checkboxList";
   checkbox.checked = checked;
 
-  const texto = document.createElement("span");
-  texto.classList.add("item-texto");
-  texto.textContent = text;
+  label.appendChild(checkbox);
+  label.appendChild(document.createTextNode(" " + text));
 
   const valueInput = document.createElement("input");
   valueInput.type = "number";
   valueInput.placeholder = "Insira o valor";
   valueInput.value = price;
-  valueInput.classList.add("preco-input");
   valueInput.disabled = !checked;
 
+  // Botão de remover item
   const removeBtn = document.createElement("button");
   removeBtn.textContent = "X";
-  removeBtn.classList.add("remover");
+  removeBtn.className = "remover";
+  removeBtn.style.marginLeft = "8px";
 
   removeBtn.addEventListener("click", () => {
-    linha.remove();
+    label.remove();
+    valueInput.remove();
+    removeBtn.remove();
+    br.remove();
     updateTotal();
     saveList();
   });
+
+  const br = document.createElement("br");
 
   checkbox.addEventListener("change", () => {
     valueInput.disabled = !checkbox.checked;
@@ -54,44 +59,47 @@ function addItem(text = item.value, price = "", checked = false) {
     saveList();
   });
 
-  linha.appendChild(checkbox);
-  linha.appendChild(texto);
-  linha.appendChild(valueInput);
-  linha.appendChild(removeBtn);
+  container.appendChild(label);
+  container.appendChild(valueInput);
+  container.appendChild(removeBtn);
+  container.appendChild(br);
 
-  container.appendChild(linha);
   item.value = "";
 
-  saveList();
   updateTotal();
+  saveList();
 }
 
 function updateTotal() {
   let totalSum = 0;
-  const itens = container.querySelectorAll(".item-linha");
+  const inputs = container.querySelectorAll('input[type="number"]');
 
-  itens.forEach(linha => {
-    const checkbox = linha.querySelector("input[type='checkbox']");
-    const preco = linha.querySelector(".preco-input");
-    if (checkbox.checked) totalSum += parseFloat(preco.value) || 0;
+  inputs.forEach(input => {
+    const label = input.previousElementSibling;
+    const checkbox = label.querySelector('input[type="checkbox"]');
+    if (checkbox.checked) totalSum += parseFloat(input.value) || 0;
   });
 
   total.textContent = "R$ " + totalSum.toFixed(2);
 }
 
 function saveList() {
-  const itens = [];
-  const linhas = container.querySelectorAll(".item-linha");
+  let items = [];
+  const labels = container.querySelectorAll("label");
 
-  linhas.forEach(linha => {
-    itens.push({
-      text: linha.querySelector(".item-texto").textContent,
-      price: linha.querySelector(".preco-input").value,
-      checked: linha.querySelector("input[type='checkbox']").checked
+  labels.forEach(label => {
+    const checkbox = label.querySelector('input[type="checkbox"]');
+    const text = label.childNodes[1].textContent.trim();
+    const valueInput = label.nextElementSibling;
+
+    items.push({
+      text,
+      price: valueInput.value,
+      checked: checkbox.checked
     });
   });
 
-  localStorage.setItem("listaSuper", JSON.stringify(itens));
+  localStorage.setItem("listaSuper", JSON.stringify(items));
 }
 
 function loadSavedList() {
@@ -101,6 +109,6 @@ function loadSavedList() {
 
 function resetList() {
   container.innerHTML = "";
-  total.textContent = "R$ 0.00";
+  total.textContent = "R$ 0";
   localStorage.removeItem("listaSuper");
 }
