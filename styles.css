@@ -1,73 +1,105 @@
-body{
+body {
   margin: 20px;
-  padding: auto;
   min-height: 100vh;
   background-color: #b0c4de;
-  justify-content: center;
-}
-
-#title{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   font-family: Arial, Helvetica, sans-serif;
 }
 
-#nomeItem{
-  width: 180px;
-  padding: 8px;
-  font-family: Verdana, sans-serif;
+#title {
+  font-size: 22px;
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+#nomeItem {
+  width: 100%;
+  max-width: 320px;
+  padding: 12px;
+  font-size: 16px;
   border: 2px solid whitesmoke;
   border-radius: 12px;
+  box-sizing: border-box;
 }
 
-#addItem{
-  margin-left: 16px;
-  padding: 8px;
-  border-radius: 24px;
-  justify-content: center;
-}
-
-#addItem:hover{
-  background-color: rgb(214, 213, 213);
-  cursor: pointer;
-}
-
-#addItem:active{
-  background-color: green;
-}
-
-#reset{
-  margin-left: 16px;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 18px;
-  padding-right: 18px;
-  border-radius: 24px;
-  justify-content: center;
-}
-
-#reset:hover{
-  background-color: rgb(243, 62, 62);
-  cursor: pointer;
-}
-
-#reset:active{
-  background-color: red;
-}
-
-#result{
-  margin-top: 20px;
+#addItem,
+#reset {
+  width: 100%;
+  max-width: 320px;
+  margin-top: 10px;
+  padding: 12px;
   font-size: 16px;
+  border-radius: 24px;
+  border: none;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+#addItem:hover {
+  background-color: rgb(214, 213, 213);
+}
+
+#addItem:active {
+  background-color: green;
+  color: white;
+}
+
+#reset:hover {
+  background-color: rgb(243, 62, 62);
+}
+
+#reset:active {
+  background-color: red;
+  color: white;
+}
+
+#lista-itens {
+  margin-top: 20px;
+  width: 100%;
+  max-width: 340px;
+}
+
+#result {
+  margin-top: 18px;
+  font-size: 18px;
   font-family: 'Poppins', sans-serif;
   font-weight: bold;
+  width: 100%;
+  max-width: 340px;
+  text-align: right;
 }
 
-.checkboxList{
-  margin-top: 20px;
+.checkboxList {
+  margin-top: 16px;
   width: 20px;
   height: 20px;
-  accent-color: #4CAF50; /* cor do “check” */
+  accent-color: #4CAF50;
   cursor: pointer;
 }
 
-#nomeItem{
-  
+.remover {
+  padding: 4px 8px;
+  margin-left: 8px;
+  border-radius: 8px;
+  border: none;
+  background: crimson;
+  color: white;
+  cursor: pointer;
+}
+
+.remover:active {
+  background: darkred;
+}
+
+/* 🔥 Ajuste fino para telas menores */
+@media (max-width: 380px) {
+  #nomeItem,
+  #addItem,
+  #reset,
+  #result,
+  #lista-itens {
+    max-width: 280px;
+  }
 }
