@@ -32,15 +32,22 @@ function addItem(text = item.value, price = "", checked = false) {
   valueInput.value = price;
   valueInput.disabled = !checked;
 
-  // ----- NOVO BOTÃO DE REMOVER ITEM -----
+  // ----- BOTÃO DE REMOVER ITEM -----
   const removeBtn = document.createElement("button");
   removeBtn.textContent = "X";
   removeBtn.classList.add("remover");
   removeBtn.style.marginLeft = "8px";
+
   removeBtn.addEventListener("click", function () {
-    label.nextElementSibling.remove(); // remove input
-    label.nextElementSibling?.remove(); // remove <br>
-    label.remove(); // remove label (com checkbox e texto)
+    const priceInput = label.nextElementSibling;
+    const removeBtnEl = priceInput.nextElementSibling;
+    const br = removeBtnEl.nextElementSibling;
+
+    label.remove();
+    priceInput.remove();
+    removeBtnEl.remove();
+    br.remove();
+
     updateTotal();
     saveList();
   });
